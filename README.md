@@ -51,6 +51,3 @@ curl http://localhost:8080/albums \
 - Go 1.23.0
 - Gin Web Framework
 - Google Cloud Platform
-
-## Author
-Daksh Patel - Northeastern University
