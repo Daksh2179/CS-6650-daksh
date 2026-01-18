@@ -1,18 +1,13 @@
-\# CS6650 - Building Scalable Distributed Systems
+# CS6650 - Building Scalable Distributed Systems
 
+**Student:** Daksh
 
+**NUID:** 002333666
 
-\*\*Student:\*\* Daksh  
+**Semester:** Spring 2026
 
-\*\*NUID:\*\* 002333666  
+## Repository Structure
 
-\*\*Semester:\*\* Spring 2026
-
-
-
-\## Repository Structure
-
-```
 
 cs-6650-daksh/
 
@@ -22,35 +17,18 @@ cs-6650-daksh/
 
 └── README.md
 
-```
+## Assignments
 
-
-
-\## Assignments
-
-
-
-\### Homework 1a - Go Web Service
+### Homework 1a - Go Web Service
 
 Basic REST API with Gin framework
 
+### Homework 1b - AWS EC2 Deployment & Performance Testing
 
+- EC2 instance setup and deployment
 
-\### Homework 1b - AWS EC2 Deployment \& Performance Testing
+- Cross-compilation for Linux
 
-\- EC2 instance setup and deployment
+- Load testing with Python
 
-\- Cross-compilation for Linux
-
-\- Load testing with Python
-
-\- Performance analysis
-
-
-
----
-
-
-
-\*\*Northeastern University - Khoury College\*\*
-
+- Performance analysis
