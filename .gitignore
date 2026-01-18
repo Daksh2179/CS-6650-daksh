@@ -1,0 +1,20 @@
+# AWS Keys - NEVER commit!
+*.pem
+*.ppk
+
+# Binaries
+myserver
+*.exe
+web-service
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
