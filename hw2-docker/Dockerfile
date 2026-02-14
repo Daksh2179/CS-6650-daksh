@@ -1,4 +1,4 @@
-FROM golang:1.25
+FROM golang:1.23
 
 WORKDIR /app
 
@@ -7,7 +7,7 @@ RUN go mod download
 
 COPY *.go ./
 
-RUN go build -o /web-service
+RUN CGO_ENABLED=0 GOOS=linux go build -o /web-service
 
 EXPOSE 8080
 

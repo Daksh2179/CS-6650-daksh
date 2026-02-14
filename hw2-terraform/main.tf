@@ -17,14 +17,15 @@ provider "aws" {
 
 # Your ec2 instance
 resource "aws_instance" "demo-instance" {
+  count                  = 2
   ami                    = data.aws_ami.al2023.id
-  instance_type          = "t2.micro"
+  instance_type          = "t2.small"
   iam_instance_profile   = "LabInstanceProfile"
   vpc_security_group_ids = [aws_security_group.ssh.id]
   key_name               = var.ssh_key_name
 
   tags = {
-    Name = "terraform-created-instance-:)"
+    Name = "terraform-instance-${count.index}"
   }
 }
 
@@ -39,6 +40,13 @@ resource "aws_security_group" "ssh" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = [var.ssh_cidr]
+  }
+  ingress {
+    description = "HTTP"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     from_port   = 0
@@ -59,5 +67,9 @@ data "aws_ami" "al2023" {
 }
 
 output "ec2_public_dns" {
-  value = aws_instance.demo-instance.public_dns
+  value = aws_instance.demo-instance[*].public_dns
+}
+
+output "ec2_public_ips" {
+  value = aws_instance.demo-instance[*].public_ip
 }
