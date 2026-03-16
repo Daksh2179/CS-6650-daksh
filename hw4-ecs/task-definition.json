@@ -1,0 +1,31 @@
+{
+  "family": "hello-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::273074151120:role/LabRole",
+  "taskRoleArn": "arn:aws:iam::273074151120:role/LabRole",
+  "containerDefinitions": [
+    {
+      "name": "hello-container",
+      "image": "273074151120.dkr.ecr.us-west-2.amazonaws.com/hello-service:latest",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/hello-task",
+          "awslogs-region": "us-west-2",
+          "awslogs-stream-prefix": "ecs",
+          "awslogs-create-group": "true"
+        }
+      }
+    }
+  ]
+}
