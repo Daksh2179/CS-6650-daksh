@@ -1,0 +1,20 @@
+# Terraform
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+
+# Go binaries
+app/hw7
+lambda/lambda
+lambda/bootstrap
+
+# Lambda zip
+lambda/function.zip
+
+# Docker
+**/.dockerignore
+
+# OS
+.DS_Store
+Thumbs.db
