@@ -1,0 +1,135 @@
+# ─── Leader-Follower: W=5 R=1 ───────────────────────────────────────────────
+# To switch strategies, change W and R on the leader service and restart.
+# W=5 R=1  → wait for all nodes on write, read only from leader
+# W=1 R=5  → write instantly, read from all nodes
+# W=3 R=3  → quorum
+
+services:
+
+  # ── Leader-Follower Nodes ──────────────────────────────────────────────────
+
+  lf-leader:
+    image: kv-leader-follower
+    container_name: lf-leader
+    ports:
+      - "8001:8080"
+    environment:
+      ROLE: leader
+      W: "3"
+      R: "3"
+      NODE_ADDRESSES: "http://lf-follower1:8080,http://lf-follower2:8080,http://lf-follower3:8080,http://lf-follower4:8080"
+    networks:
+      - kvnet
+
+  lf-follower1:
+    image: kv-leader-follower
+    container_name: lf-follower1
+    ports:
+      - "8002:8080"
+    environment:
+      ROLE: follower
+      W: "5"
+      R: "1"
+      NODE_ADDRESSES: ""
+    networks:
+      - kvnet
+
+  lf-follower2:
+    image: kv-leader-follower
+    container_name: lf-follower2
+    ports:
+      - "8003:8080"
+    environment:
+      ROLE: follower
+      W: "5"
+      R: "1"
+      NODE_ADDRESSES: ""
+    networks:
+      - kvnet
+
+  lf-follower3:
+    image: kv-leader-follower
+    container_name: lf-follower3
+    ports:
+      - "8004:8080"
+    environment:
+      ROLE: follower
+      W: "5"
+      R: "1"
+      NODE_ADDRESSES: ""
+    networks:
+      - kvnet
+
+  lf-follower4:
+    image: kv-leader-follower
+    container_name: lf-follower4
+    ports:
+      - "8005:8080"
+    environment:
+      ROLE: follower
+      W: "5"
+      R: "1"
+      NODE_ADDRESSES: ""
+    networks:
+      - kvnet
+
+  # ── Leaderless Nodes ───────────────────────────────────────────────────────
+
+  ll-node1:
+    image: kv-leaderless
+    container_name: ll-node1
+    ports:
+      - "9001:8080"
+    environment:
+      NODE_ID: "http://ll-node1:8080"
+      NODE_ADDRESSES: "http://ll-node2:8080,http://ll-node3:8080,http://ll-node4:8080,http://ll-node5:8080"
+    networks:
+      - kvnet
+
+  ll-node2:
+    image: kv-leaderless
+    container_name: ll-node2
+    ports:
+      - "9002:8080"
+    environment:
+      NODE_ID: "http://ll-node2:8080"
+      NODE_ADDRESSES: "http://ll-node1:8080,http://ll-node3:8080,http://ll-node4:8080,http://ll-node5:8080"
+    networks:
+      - kvnet
+
+  ll-node3:
+    image: kv-leaderless
+    container_name: ll-node3
+    ports:
+      - "9003:8080"
+    environment:
+      NODE_ID: "http://ll-node3:8080"
+      NODE_ADDRESSES: "http://ll-node1:8080,http://ll-node2:8080,http://ll-node4:8080,http://ll-node5:8080"
+    networks:
+      - kvnet
+
+  ll-node4:
+    image: kv-leaderless
+    container_name: ll-node4
+    ports:
+      - "9004:8080"
+    environment:
+      NODE_ID: "http://ll-node4:8080"
+      NODE_ADDRESSES: "http://ll-node1:8080,http://ll-node2:8080,http://ll-node3:8080,http://ll-node5:8080"
+    networks:
+      - kvnet
+
+  ll-node5:
+    image: kv-leaderless
+    container_name: ll-node5
+    ports:
+      - "9005:8080"
+    environment:
+      NODE_ID: "http://ll-node5:8080"
+      NODE_ADDRESSES: "http://ll-node1:8080,http://ll-node2:8080,http://ll-node3:8080,http://ll-node4:8080"
+    networks:
+      - kvnet
+
+networks:
+  kvnet:
+    driver: bridge
